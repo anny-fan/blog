@@ -1,13 +1,20 @@
 <template>
   <!-- <div id="app"> -->
   <v-layout>
-    <v-app-bar title="Blog" :elevation="1"></v-app-bar>
+    <v-app-bar :elevation="1" class="px-6 lg:px-12">
+      <div class="flex items-center gap-4">
+        <router-link to="/" class="text-2xl">Blog</router-link>
+        <nav class="text-primary">
+          <router-link to="/register">Register</router-link>
+        </nav>
+      </div>
+    </v-app-bar>
     <v-main>
-      <v-container
-        class="flex align-center justify-center min-h-[300px] bg-stone-800"
+      <div
+        class="flex align-center justify-center min-h-[300px] bg-stone-800 p-8 lg:w-10/12 mx-auto"
       >
         <router-view></router-view>
-      </v-container>
+      </div>
     </v-main>
   </v-layout>
   <!-- </div> -->

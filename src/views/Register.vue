@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center m-auto gap-2">
+  <div class="flex flex-col items-center gap-2 w-full">
     <h1 class="text-3xl">Sign Up</h1>
     <router-link to="/login" class="text-slate-300"
       >Have an acount?</router-link
@@ -7,7 +7,7 @@
     <v-form
       @submit.prevent="onSubmit"
       v-model="valid"
-      class="w-[400px] flex flex-col gap-2"
+      class="w-full lg:w-[400px] flex flex-col gap-2"
     >
       <v-text-field
         v-model="Username"
