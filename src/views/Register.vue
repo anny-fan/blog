@@ -43,8 +43,8 @@ import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
-import router from "../router";
 
+const router = useRouter();
 const store = useStore();
 const isSubmitting = computed(() => store.state.auth.isSubmitting);
 
@@ -80,11 +80,11 @@ const emailRules = ref([
     return "E-mail must be valid.";
   },
 ]);
-const register = () => {
+function register() {
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
       console.log("Successfully registered!");
-      router.push("/admin");
+      router.push("/login");
     })
     .catch((error) => {
       console.log(error.code);
@@ -92,7 +92,7 @@ const register = () => {
       email.value = "";
       password.value = "";
     });
-};
+}
 const signInWithGoogle = () => {};
 </script>
 

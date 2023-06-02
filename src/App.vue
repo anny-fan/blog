@@ -6,14 +6,16 @@
         <router-link to="/" class="flex-none text-2xl">Blog</router-link>
         <nav class="grow flex items-center gap-2"></nav>
         <div class="flex-none flex gap-2 text-primary">
-          <template v-if="true">
+          <template v-if="!currentUser">
             <router-link to="/register">Sign Up</router-link>
             <router-link to="/login">Login</router-link>
           </template>
-          <router-link v-else to="/admin" class="flex-none"
-            ><div class="w-[35px] h-[35px] rounded-full bg-violet-800">
-              <img src="" alt="" class="avatar" /></div
-          ></router-link>
+          <template v-else>
+            <router-link to="/admin" class="flex-none"
+              ><div class="w-[35px] h-[35px] rounded-full bg-violet-800">
+                <img src="" alt="" class="avatar" /></div
+            ></router-link>
+          </template>
         </div>
       </div>
     </v-app-bar>
@@ -28,7 +30,20 @@
   <!-- </div> -->
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import { getAuth } from "firebase/auth";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const auth = getAuth();
+
+const currentUser = ref(null);
+
+auth.onAuthStateChanged((user) => {
+  currentUser.value = user;
+});
+</script>
 
 <style lang="scss" scoped>
 :deep {

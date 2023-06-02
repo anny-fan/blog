@@ -3,44 +3,53 @@
     <h1 class="text-3xl mb-4">Login</h1>
 
     <v-form
-      @submit.prevent="onSubmit"
-      v-model="valid"
+      @submit.prevent="signIn"
       class="w-full lg:w-[400px] flex flex-col gap-2"
     >
-      <v-text-field
-        v-model="Email"
-        :rules="nameRules"
-        label="Email or Username"
-        required
-        class="w-full"
-      ></v-text-field>
-      <v-text-field
-        v-model="Password"
-        :rules="nameRules"
-        :counter="10"
-        label="Password"
-        required
-        class="w-full"
-      ></v-text-field>
-      <v-btn type="submit" class="self-end" :disabled="isSubmitting">
-        Login
-      </v-btn>
-      {{ isSubmitting }}
+      <v-text-field v-model="email" label="Email" required></v-text-field>
+      <v-text-field v-model="password" label="Password" required></v-text-field>
+      <v-btn type="submit" class="self-end"> Login </v-btn>
     </v-form>
+    <p v-if="errMsg">{{ errMsg }}</p>
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useStore } from "vuex";
+import { ref } from "vue";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "vue-router";
 
-const store = useStore();
-const isSubmitting = computed(() => store.state.auth.isSubmitting);
+const router = useRouter();
+const email = ref("");
+const password = ref("");
+const errMsg = ref("");
 
-function onSubmit() {
-  console.log("start");
-  store.dispatch("register");
-}
+const signIn = () => {
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .then((data) => {
+      console.log("Successfully signed!");
+      console.log(auth.currentUser);
+      router.push("/admin");
+    })
+    .catch((error) => {
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/invalid-email":
+          errMsg.value = "Invalid email";
+          break;
+        case "auth/user-not-found":
+          errMes.value = "No account with that email was found";
+          break;
+        case "auth/wrong-password":
+          errMsg.value = "Incorrect password";
+          break;
+        default:
+          errMsg.value = "Email or password was incorrect";
+          break;
+      }
+    });
+};
 </script>
 
 <style lang="scss" scoped></style>
