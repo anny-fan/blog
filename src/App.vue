@@ -1,12 +1,20 @@
 <template>
   <!-- <div id="app"> -->
   <v-layout>
-    <v-app-bar :elevation="1" class="px-6 lg:px-12">
-      <div class="flex items-center gap-4">
-        <router-link to="/" class="text-2xl">Blog</router-link>
-        <nav class="text-primary">
-          <router-link to="/register">Register</router-link>
-        </nav>
+    <v-app-bar :elevation="1">
+      <div class="flex items-center gap-4 w-full">
+        <router-link to="/" class="flex-none text-2xl">Blog</router-link>
+        <nav class="grow flex items-center gap-2"></nav>
+        <div class="flex-none flex gap-2 text-primary">
+          <template v-if="true">
+            <router-link to="/register">Sign Up</router-link>
+            <router-link to="/login">Login</router-link>
+          </template>
+          <router-link v-else to="/admin" class="flex-none"
+            ><div class="w-[35px] h-[35px] rounded-full bg-violet-800">
+              <img src="" alt="" class="avatar" /></div
+          ></router-link>
+        </div>
       </div>
     </v-app-bar>
     <v-main>
@@ -22,4 +30,10 @@
 
 <script setup></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+:deep {
+  .v-toolbar__content {
+    padding: 0 20px;
+  }
+}
+</style>

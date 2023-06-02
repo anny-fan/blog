@@ -14,13 +14,7 @@ export default createStore({
   strict: debug,
   plugins: debug ? [createLogger()] : [],
 
-  state: {
-    count: 0,
-  },
-  mutations: {
-    increment(state) {
-      state.count++;
-    },
-  },
+  state: {},
+  mutations: {},
   actions: {},
 });
