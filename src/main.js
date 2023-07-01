@@ -3,6 +3,7 @@ import App from "./App.vue";
 import store from "./store";
 import router from "./router";
 
+import "@mdi/font/css/materialdesignicons.css"; // Ensure you are using css-loader
 import "./main.scss"; //vuetify
 import "./style.css"; //tailwind
 import { createVuetify } from "vuetify";

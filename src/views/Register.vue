@@ -33,7 +33,7 @@
       <v-btn type="submit" class="self-end" :disabled="isSubmitting">
         Sign Up
       </v-btn>
-      {{ isSubmitting }}
+      <!-- {{ isSubmitting }} -->
     </v-form>
   </div>
 </template>

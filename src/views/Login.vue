@@ -7,7 +7,14 @@
       class="w-full lg:w-[400px] flex flex-col gap-2"
     >
       <v-text-field v-model="email" label="Email" required></v-text-field>
-      <v-text-field v-model="password" label="Password" required></v-text-field>
+      <v-text-field
+        v-model="password"
+        label="Password"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showPassword ? 'text' : 'password'"
+        required
+        @click:append="showPassword = !showPassword"
+      ></v-text-field>
       <v-btn type="submit" class="self-end"> Login </v-btn>
     </v-form>
     <p v-if="errMsg">{{ errMsg }}</p>
@@ -22,6 +29,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const email = ref("");
 const password = ref("");
+const showPassword = ref(false);
 const errMsg = ref("");
 
 const signIn = () => {
